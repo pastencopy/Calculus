@@ -49,7 +49,7 @@ namespace Calculus
          *    Solve()
          *    
          *      init_values : 초기 Y 값
-         *      func        :  미분 방정식
+         *      func        : 미분 방정식
          *      t0          : t의 범위 시작
          *      tN          : t의 범위 끝
          *      t_interval  : dt 간격
@@ -84,9 +84,15 @@ namespace Calculus
         public static List<List<double>> Solve(
             List<double> init_values,                       // 초기 Y 값
             Func<double, List<double>, List<double>> func,  // 미분 방정식 y' =  f(t, Y[])
-            int t0 = 0, int tN = 10, int t_interval = 10000 // dt의 시작~종료 구간 및 간격
+            int t0 = 0, int tN = 10, int t_interval = 10000 // dt의 시작~종료 구간 및 간격, (단 tN > t0)
             )
         {
+
+            if (t0 > tN || t_interval < 1)
+            {
+                throw new Exception("초기값이 잘못 되었습니다.");
+            }
+
             double h = (tN - t0) / (double)t_interval; //시간 변화량, 변수명은 룽게쿠타 방식에서의 ( dt == h ) 와 같다
 
             List<List<double>> outputs = new List<List<double>>();
@@ -141,16 +147,14 @@ namespace Calculus
         /*
         *    DrawGraph2D()
         *    
-        *    output : 미분방정식으로 구한 값
-        *    shiftX : 시작x좌표를 x 축방향으로 이동   --->
+        *    output : 미분방정식으로 구한 y좌표 값
         * 
         * */
-        public static void DrawGraph2D(Graphics g, int width, int height, List<List<double>> output, uint shiftX)
+        public static void DrawGraph2D(Graphics g, int width, int height, List<List<double>> output)
         {
-            g.Clear(Color.White);
-
+            //XY축 최대값
             double minY = 0.0;
-            double maxY = 0.0; //y축 최대값
+            double maxY = 0.0;
             output.ForEach(
                 (item) => {
                     item.ForEach(
@@ -164,18 +168,18 @@ namespace Calculus
 
             const int marginX = 10;
             const int marginY = 10;
+            const int dotSize = 3;
 
-            float graph_y_length = height - marginY;
-            float graph_x_length = width - marginX;
+            float graph_y_length = height - marginY;                //y축 길이
+            float graph_x_length = width - marginX;                 //x축길이
 
-            float scaleY = graph_y_length / (float)(maxY - minY);
-            float scaleX = graph_x_length / output.Count;
-
+            float scaleY = graph_y_length / (float)(maxY - minY); //y축 1칸당 크기
+            float scaleX = graph_x_length / output.Count;         //x축 1칸당 크기
 
             g.TranslateTransform(0, (float)(scaleY * (minY))); //좌표 이동 0,0
+            g.Clear(Color.White);
 
-
-            Color[] colorlist = { Color.Blue, Color.Red, Color.Green, Color.Purple, Color.DarkGray };
+            Color[] colorlist = { Color.DodgerBlue, Color.OrangeRed, Color.Green, Color.Purple, Color.DarkGray };
 
             for (int i = 0; i < output.Count; i++)
             {
@@ -187,15 +191,12 @@ namespace Calculus
                     int posY = (int)(graph_y_length - (scaleY * y)); //y 좌표계가 반대방향
 
                     Brush brush = new SolidBrush(colorlist[j]);
-                    g.FillEllipse(brush, posX, posY, 3, 3);
+                    g.FillEllipse(brush, posX, posY, dotSize, dotSize);
                 }
             }
 
-
-            g.DrawLine(Pens.Black, -graph_x_length, graph_y_length, graph_x_length, graph_y_length); // x축
-            g.DrawLine(Pens.Black, marginX + shiftX, graph_y_length*2, marginX + shiftX, 0); // y축
-
-
+            g.DrawLine(Pens.DimGray, -graph_x_length, graph_y_length, graph_x_length, graph_y_length); // x축
+            g.DrawLine(Pens.DimGray, marginX, graph_y_length*2, marginX, marginY); // y축
         }
 
     }

@@ -45,6 +45,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnSimpleDifferential8 = new System.Windows.Forms.Button();
+            this.btnSimpleDifferential9 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnSimpleDifferential10 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -53,14 +58,14 @@
             // 
             this.picCanvas.Location = new System.Drawing.Point(12, 12);
             this.picCanvas.Name = "picCanvas";
-            this.picCanvas.Size = new System.Drawing.Size(780, 416);
+            this.picCanvas.Size = new System.Drawing.Size(780, 558);
             this.picCanvas.TabIndex = 1;
             this.picCanvas.TabStop = false;
             this.picCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.picCanvas_Paint);
             // 
             // btnCalcPredatorPrey
             // 
-            this.btnCalcPredatorPrey.Location = new System.Drawing.Point(6, 312);
+            this.btnCalcPredatorPrey.Location = new System.Drawing.Point(6, 430);
             this.btnCalcPredatorPrey.Name = "btnCalcPredatorPrey";
             this.btnCalcPredatorPrey.Size = new System.Drawing.Size(147, 35);
             this.btnCalcPredatorPrey.TabIndex = 2;
@@ -74,7 +79,7 @@
             this.btnSimpleDifferential.Name = "btnSimpleDifferential";
             this.btnSimpleDifferential.Size = new System.Drawing.Size(147, 35);
             this.btnSimpleDifferential.TabIndex = 3;
-            this.btnSimpleDifferential.Text = "y\' = 2x";
+            this.btnSimpleDifferential.Text = "y\' = 2y";
             this.btnSimpleDifferential.UseVisualStyleBackColor = true;
             this.btnSimpleDifferential.Click += new System.EventHandler(this.btnSimpleDifferential_Click);
             // 
@@ -110,6 +115,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.btnSimpleDifferential10);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.btnSimpleDifferential9);
+            this.groupBox1.Controls.Add(this.btnSimpleDifferential8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
@@ -127,10 +137,10 @@
             this.groupBox1.Controls.Add(this.btnSimpleDifferential3);
             this.groupBox1.Location = new System.Drawing.Point(798, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(326, 416);
+            this.groupBox1.Size = new System.Drawing.Size(315, 558);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "미분 방정식 구하기";
+            this.groupBox1.Text = "미분 방정식 풀이 구하기 (ODE)";
             // 
             // btnSimpleDifferential7
             // 
@@ -167,9 +177,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(170, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 12);
+            this.label1.Size = new System.Drawing.Size(69, 12);
             this.label1.TabIndex = 10;
-            this.label1.Text = "F(x) = x²";
+            this.label1.Text = "F(x) = e^2x";
             // 
             // label2
             // 
@@ -225,11 +235,59 @@
             this.label7.TabIndex = 16;
             this.label7.Text = "F(x) = e(x) - cos(x)";
             // 
+            // btnSimpleDifferential8
+            // 
+            this.btnSimpleDifferential8.Location = new System.Drawing.Point(6, 307);
+            this.btnSimpleDifferential8.Name = "btnSimpleDifferential8";
+            this.btnSimpleDifferential8.Size = new System.Drawing.Size(147, 35);
+            this.btnSimpleDifferential8.TabIndex = 17;
+            this.btnSimpleDifferential8.Text = "du/dt = 3u+4v\r\ndv/dt =−4u+3v";
+            this.btnSimpleDifferential8.UseVisualStyleBackColor = true;
+            this.btnSimpleDifferential8.Click += new System.EventHandler(this.btnSimpleDifferential8_Click);
+            // 
+            // btnSimpleDifferential9
+            // 
+            this.btnSimpleDifferential9.Location = new System.Drawing.Point(6, 348);
+            this.btnSimpleDifferential9.Name = "btnSimpleDifferential9";
+            this.btnSimpleDifferential9.Size = new System.Drawing.Size(147, 35);
+            this.btnSimpleDifferential9.TabIndex = 18;
+            this.btnSimpleDifferential9.Text = "y\' = x² - 2x + 1";
+            this.btnSimpleDifferential9.UseVisualStyleBackColor = true;
+            this.btnSimpleDifferential9.Click += new System.EventHandler(this.btnSimpleDifferential9_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(170, 359);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(112, 12);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "F(x) = ⅓x³ - x² + x";
+            // 
+            // btnSimpleDifferential10
+            // 
+            this.btnSimpleDifferential10.Location = new System.Drawing.Point(6, 389);
+            this.btnSimpleDifferential10.Name = "btnSimpleDifferential10";
+            this.btnSimpleDifferential10.Size = new System.Drawing.Size(147, 35);
+            this.btnSimpleDifferential10.TabIndex = 20;
+            this.btnSimpleDifferential10.Text = "y\' = 2x";
+            this.btnSimpleDifferential10.UseVisualStyleBackColor = true;
+            this.btnSimpleDifferential10.Click += new System.EventHandler(this.btnSimpleDifferential10_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(171, 400);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(54, 12);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "F(x) = x²";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 439);
+            this.ClientSize = new System.Drawing.Size(1122, 586);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.picCanvas);
             this.Name = "Form1";
@@ -259,6 +317,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnSimpleDifferential8;
+        private System.Windows.Forms.Button btnSimpleDifferential9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnSimpleDifferential10;
+        private System.Windows.Forms.Label label9;
     }
 }
 
