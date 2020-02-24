@@ -97,8 +97,8 @@ namespace Calculus
 
             // du/dt = 3u + 4v
             // dv/dt = -4u + 3v
-            result.Add(  3*y[0] + 4*y[1]);
-            result.Add( -4*y[0] + 3*y[1]);
+            result.Add(  3.0*y[0] + 4.0*y[1]);
+            result.Add( -4.0*y[0] + 3.0*y[1]);
             return result;
         }
 
@@ -108,7 +108,7 @@ namespace Calculus
         public static List<double> example9(double t, List<double> y)
         {
             List<double> result = new List<double>();
-            result.Add(t*t  - (2*t) + 1);
+            result.Add(t*t  - (2.0*t) + 1);
             return result;
         }
 
@@ -117,7 +117,7 @@ namespace Calculus
         public static List<double> example10(double t, List<double> y)
         {
             List<double> result = new List<double>();
-            result.Add(2 * t);
+            result.Add(2.0 * t);
             return result;
         }
 
