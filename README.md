@@ -8,6 +8,12 @@ Calculus
 
 2D / x-y 연결형 그래프를 그릴 수 있습니다.
 
+![Lorenz System](screenshot_lorenzsystem.png)
+Lorenz System
+
+
+![Predator Prey](screenshot_predatorprey.png)
+Predator Prey
 
 
 
