@@ -2,11 +2,12 @@
  * 
  * 미분 솔루션
  * 
- * 상미분 방정식을 롱게쿠타 방식으로 근사혜를 구합니다.
+ * 상미분 방정식을 롱게-쿠타 방식으로 근사혜를 구합니다.
  * 
  * 2020 Coded by GwangSu Lee
  * 
  * Runge–Kutta methods : https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods
+ * Lorenz system : https://en.wikipedia.org/wiki/Lorenz_system
  * 
  */
 using System;
@@ -20,6 +21,12 @@ namespace Calculus
 {
     public class DifferentialSolver
     {
+        public enum GraphType
+        {
+            NORMAL,
+            CONNECT_XY,
+        }
+
         private static DifferentialSolver _inst = new DifferentialSolver();
         private DifferentialSolver() { }
 
@@ -143,19 +150,35 @@ namespace Calculus
             return outputs;
         }
 
-
         /*
-        *    DrawGraph2D()
-        *    
-        *    output : 미분방정식으로 구한 y좌표 값
-        * 
-        * */
-        public static void DrawGraph2D(Graphics g, int width, int height, List<List<double>> output)
+         *    DrawGraph2D()
+         *    
+         *    
+         *    yaxies : 미분방정식으로 구한 y좌표 값
+         *    
+         *    
+         *    
+         */
+
+        public static void DrawGraph2D(Graphics g, int width, int height, List<List<double>> yaxies , GraphType graphType = GraphType.NORMAL)
+        {
+            if (graphType == GraphType.CONNECT_XY )
+            {
+                DrawGraph2DLine(g, width, height, yaxies);
+            }
+            else if (graphType == GraphType.NORMAL)
+            {
+                DrawGraph2DNormal(g, width, height, yaxies);
+            }
+        }
+
+           
+        private static void DrawGraph2DNormal(Graphics g, int width, int height, List<List<double>> yaxies)
         {
             //XY축 최대값
             double minY = 0.0;
             double maxY = 0.0;
-            output.ForEach(
+            yaxies.ForEach(
                 (item) => {
                     item.ForEach(
                         (subitem) =>
@@ -174,16 +197,18 @@ namespace Calculus
             float graph_x_length = width - marginX;                 //x축길이
 
             float scaleY = graph_y_length / (float)(maxY - minY); //y축 1칸당 크기
-            float scaleX = graph_x_length / output.Count;         //x축 1칸당 크기
+            float scaleX = graph_x_length / yaxies.Count;         //x축 1칸당 크기
 
             g.TranslateTransform(0, (float)(scaleY * (minY))); //좌표 이동 0,0
             g.Clear(Color.White);
+            g.DrawLine(Pens.Silver, -graph_x_length, graph_y_length, graph_x_length, graph_y_length); // x축
+            g.DrawLine(Pens.Silver, marginX, graph_y_length * 2, marginX, marginY); // y축
 
             Color[] colorlist = { Color.DodgerBlue, Color.OrangeRed, Color.Green, Color.Purple, Color.DarkGray };
 
-            for (int i = 0; i < output.Count; i++)
+            for (int i = 0; i < yaxies.Count; i++)
             {
-                List<double> item = output[i];
+                List<double> item = yaxies[i];
                 for (int j = 0; j < item.Count; j++)
                 {
                     double y = item[j];
@@ -195,8 +220,52 @@ namespace Calculus
                 }
             }
 
-            g.DrawLine(Pens.DimGray, -graph_x_length, graph_y_length, graph_x_length, graph_y_length); // x축
-            g.DrawLine(Pens.DimGray, marginX, graph_y_length*2, marginX, marginY); // y축
+        }
+
+        private static void DrawGraph2DLine(Graphics g, int width, int height, List<List<double>> yaxies)
+        {
+            //XY축 최대값
+            double minY = 0.0;
+            double maxY = 0.0;
+            yaxies.ForEach(
+                (item) => {
+                    item.ForEach(
+                        (subitem) =>
+                        {
+                            if (maxY <= subitem) { maxY = subitem; }
+                            if (minY >= subitem) { minY = subitem; }
+                        }
+                    );
+                });
+
+            const int marginX = 10;
+            const int marginY = 10;
+            const int dotSize = 3;
+
+            float graph_y_length = height - marginY;                //y축 길이
+            float graph_x_length = width - marginX;                 //x축길이
+
+            float scaleY = graph_y_length / (float)(maxY - minY); //y축 1칸당 크기
+            float scaleX = graph_x_length / (float)(maxY - minY);         //x축 1칸당 크기
+
+            g.TranslateTransform(-(float)(scaleY * (minY)), (float)(scaleY * (minY))); //좌표 이동 0,0
+            g.Clear(Color.White);
+            g.DrawLine(Pens.Silver, -graph_x_length, graph_y_length, graph_x_length, graph_y_length); // x축
+            g.DrawLine(Pens.Silver, marginX, graph_y_length * 2, marginX, marginY); // y축
+
+            Color[] colorlist = { Color.DodgerBlue, Color.OrangeRed, Color.Green, Color.Purple, Color.DarkGray };
+
+            for (int i = 0; i < yaxies.Count; i++)
+            {
+                List<double> item = yaxies[i];
+
+                int posX = marginX + (int)(scaleX * item[0]);
+                int posY = (int)(graph_y_length - (scaleY * item[1])); //y 좌표계가 반대방향
+
+                Brush brush = new SolidBrush(colorlist[0]);
+                g.FillEllipse(brush, posX, posY, dotSize, dotSize);
+
+            }
         }
 
     }

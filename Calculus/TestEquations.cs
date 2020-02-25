@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Test Differential Equation
+ * 
+ *  2020 Coded By GwangSu Lee
+ *  
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,8 +58,7 @@ namespace Calculus
         {
             List<double> result = new List<double>();
 
-            result.Add(0); // y''은 측정불가
-            result.Add(-y[1]);
+            result.Add(-y[0]);
             return result;
         }
 
@@ -62,9 +67,7 @@ namespace Calculus
         public static List<double> example5(double t, List<double> y)
         {
             List<double> result = new List<double>();
-
-            result.Add(0); // y''은 측정불가
-            result.Add(1 / y[1]);
+            result.Add(1 / y[0]);
             return result;
         }
 
@@ -118,6 +121,63 @@ namespace Calculus
         {
             List<double> result = new List<double>();
             result.Add(2.0 * t);
+            return result;
+        }
+
+        // Simple Differential Equation 11
+        // y' = x^(-2)
+        public static List<double> example11(double t, List<double> y)
+        {
+            List<double> result = new List<double>();
+            result.Add(Math.Pow(t,-2.0));
+            return result;
+        }
+
+        // Simple Differential Equation 12
+        //
+        // d2y/dt2 = 1/(t+1)   +   sin(t)*sqrt(t)
+        // y(0) = 0
+        // dydt(0) = -2
+        public static List<double> example12(double t, List<double> y)
+        {
+            List<double> result = new List<double>();
+            result.Add(y[1]); // x
+            result.Add(1/(t+1) + Math.Sin(t)*Math.Sqrt(t)); // dx
+            return result;
+        }
+
+        // Simple Differential Equation 13
+        //
+        // dx = -y - x^2
+        // dy = 2x - y^3
+        public static List<double> example13(double t, List<double> y)
+        {
+            List<double> result = new List<double>();
+
+            result.Add( -y[1] - (y[0]* y[0]) ); // x
+            result.Add( 2*y[0] - (y[1]* y[1]* y[1])); // dx
+            return result;
+        }
+
+        //
+        // Lorenz system
+        //
+        //https://en.wikipedia.org/wiki/Lorenz_system
+        public static List<double> lorenz(double t, List<double> y)
+        {
+            List<double> result = new List<double>();
+
+            //const double sigma = 0.35323;
+            //const double beta = 0.28016;
+            //const double plastic = 1.32471;
+
+            const double sigma = 10;
+            const double beta = 8/3;
+            const double plastic = 28;
+
+            result.Add(sigma * (y[1] - y[0]));
+            result.Add(y[0] * (plastic - y[2]) - y[1]);
+            result.Add(y[0] * y[1]  - beta * y[2]);
             return result;
         }
 
