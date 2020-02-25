@@ -146,9 +146,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(161, 400);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(62, 12);
+            this.label10.Size = new System.Drawing.Size(79, 12);
             this.label10.TabIndex = 23;
-            this.label10.Text = "F(x) = 1/x";
+            this.label10.Text = "F(x) = c -1/x";
             // 
             // btnSimpleDifferential11
             // 
